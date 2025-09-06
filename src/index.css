@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    /* The core of our new theme: a dark, textured background */
+    @apply bg-gray-900 text-gray-300 font-sans;
+    background-image:
+      radial-gradient(at 27% 37%, hsla(215, 98%, 61%, 0.1) 0px, transparent 50%),
+      radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 0.1) 0px, transparent 50%),
+      radial-gradient(at 52% 99%, hsla(355, 98%, 71%, 0.1) 0px, transparent 50%),
+      radial-gradient(at 10% 29%, hsla(256, 96%, 68%, 0.1) 0px, transparent 50%),
+      radial-gradient(at 97% 96%, hsla(38, 60%, 74%, 0.1) 0px, transparent 50%),
+      radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 0.1) 0px, transparent 50%),
+      radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 0.1) 0px, transparent 50%);
+    background-color: #0c111d; /* A deep navy blue */
+  }
+}
+
+@layer components {
+  /* The "frosted glass" card style that will be used everywhere */
+  .card {
+    @apply bg-gray-800/60 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-lg p-6 transition-all duration-300;
+  }
+  
+  /* The glowing border effect for selected items */
+  .glow-border {
+    @apply border-2 border-green-400 shadow-[0_0_15px_-3px] shadow-green-400/50;
+  }
+
+  /* A new, energetic button style */
+  .btn-primary {
+    @apply bg-cyan-500 hover:bg-cyan-400 text-white font-bold py-2 px-6 rounded-full shadow-lg shadow-cyan-500/30
+           transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/50;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-700 hover:bg-gray-600 text-gray-200 font-bold py-2 px-6 rounded-full shadow-lg
+           transition-all duration-300 ease-in-out transform hover:scale-105;
+  }
+}
+
+/* Custom scrollbar to match the modern theme */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background-color: #111827; /* gray-900 */
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-700 rounded-lg border-2 border-gray-900;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-600;
+}
