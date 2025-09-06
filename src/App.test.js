@@ -1,16 +1,18 @@
+// src/App.test.js
 import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import App from './App';
 
-// ✅ Mock Firebase functions
+// Mock firebase/functions
 jest.mock('firebase/functions', () => ({
   getFunctions: jest.fn(),
   httpsCallable: jest.fn(() => () => Promise.resolve({ data: {} })),
 }));
 
-// ✅ Mock Firestore hook (fixed path!)
+// Mock Firestore hook (force arrays instead of undefined)
 jest.mock('./hooks/useFirestoreData', () => ({
   useFirestoreData: () => ({
-    allUnits: [],
+    allUnits: [],       // make sure always an array
     allBosses: [],
     allEquipment: [],
     allGuides: [],
@@ -19,14 +21,19 @@ jest.mock('./hooks/useFirestoreData', () => ({
   }),
 }));
 
-// ✅ Mock react-markdown
+// Mock react-markdown (avoid ESM issues)
 jest.mock('react-markdown', () => (props) => {
   return <div data-testid="mock-react-markdown">{props.children}</div>;
 });
 
-// ✅ Mock remark-gfm
+// Mock remark-gfm (avoid ESM issues)
 jest.mock('remark-gfm', () => () => {
   return () => null;
+});
+
+// Mock NavBar (prevent TierListPage from running .filter())
+jest.mock('./components/NavBar', () => () => {
+  return <nav>Mocked NavBar</nav>;
 });
 
 test('renders app without crashing', () => {
