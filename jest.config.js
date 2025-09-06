@@ -1,10 +1,12 @@
-// jest.config.js
-module.exports = {
+export default {
   testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.[jt]sx?$': 'babel-jest',
+    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
   },
+  moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
+  // ✅ Transform ESM deps like react-markdown & remark-gfm
   transformIgnorePatterns: [
-    '/node_modules/(?!react-markdown|remark-gfm)',
+    '/node_modules/(?!(react-markdown|remark-gfm|unist-util-visit)/)',
   ],
 };
