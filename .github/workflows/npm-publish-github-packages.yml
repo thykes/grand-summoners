@@ -1,0 +1,45 @@
+# This is a GitHub Action workflow file.
+# It defines the automated steps to run on every push.
+name: Node.js CI
+
+# Triggers the workflow on push or pull request events for the "main" branch
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    # The type of virtual machine to run the job on
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        # We will only test on Node.js 20.x to match our .nvmrc file
+        node-version: [20.x]
+
+    steps:
+      # Step 1: Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Sets up the specified version of Node.js
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      # Step 3: Installs dependencies using 'npm ci'
+      # 'ci' is faster and safer for automated environments than 'install'
+      - name: Install dependencies
+        run: npm ci
+
+      # Step 4: Runs the build command to check for compilation errors
+      - name: Build the project
+        run: npm run build
+
+      # Step 5: Runs the default tests that come with Create React App
+      - name: Run tests
+        run: npm test
