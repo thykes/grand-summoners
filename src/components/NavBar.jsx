@@ -1,70 +1,41 @@
-// src/components/TierListPage.jsx
-import React, { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import PageHeader from './PageHeader';
-import TierRow from './TierRow';
+// src/components/NavBar.jsx
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-// This order ensures the tiers are displayed from best to worst.
-const TIER_ORDER = ['SS', 'S+', 'S', 'A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D'];
+// Simple navigation bar used across the application.
+// The previous file accidentally contained the TierListPage component
+// which expected `allUnits` as a prop. Because <NavBar /> is rendered
+// without props, calling `allUnits.filter(...)` resulted in
+// "Cannot read properties of undefined" runtime errors.  This file
+// restores the proper NavBar implementation that only provides links
+// to the different sections of the app.
 
-export default function TierListPage({ allUnits, setSelectedUnit }) {
-  const navigate = useNavigate();
-
-  const unitsByTier = useMemo(() => {
-    // 1. Filter for units that have the new 'ratings' data and a tier
-    const tieredUnits = allUnits.filter(u => u.ratings?.tier);
-
-    // 2. Group units by their tier
-    const grouped = tieredUnits.reduce((acc, unit) => {
-      const tier = unit.ratings.tier;
-      if (!acc[tier]) {
-        acc[tier] = [];
-      }
-      acc[tier].push(unit);
-      return acc;
-    }, {});
-
-    // 3. Sort units within each tier by release order (or another metric if you prefer)
-    for (const tier in grouped) {
-      grouped[tier].sort((a, b) => (a.Release_Order_Index || 99999) - (b.Release_Order_Index || 99999));
-    }
-    
-    return grouped;
-  }, [allUnits]);
-
-  // Sort the tiers themselves according to our defined order
-  const sortedTiers = useMemo(() => {
-    return Object.keys(unitsByTier).sort((a, b) => {
-      const indexA = TIER_ORDER.indexOf(a);
-      const indexB = TIER_ORDER.indexOf(b);
-      // Handle tiers not in our explicit order by pushing them to the back
-      if (indexA === -1) return 1;
-      if (indexB === -1) return -1;
-      return indexA - indexB;
-    });
-  }, [unitsByTier]);
-
-  const handleUnitClick = (unit) => {
-    setSelectedUnit(unit);
-    navigate(`/unit/${unit.id}`);
-  };
+export default function NavBar() {
+  const linkClasses = ({ isActive }) =>
+    `px-3 py-2 rounded-md text-sm font-medium transition-colors ` +
+    (isActive
+      ? 'bg-gray-700 text-white'
+      : 'text-gray-300 hover:bg-gray-700 hover:text-white');
 
   return (
-    <div className="w-full">
-      <PageHeader
-        title="Community Tier List"
-        subtitle="Unit rankings based on overall power and utility in endgame content."
-      />
-      <main className="w-full">
-        {sortedTiers.map(tier => (
-          <TierRow
-            key={tier}
-            tier={tier}
-            units={unitsByTier[tier]}
-            onUnitClick={handleUnitClick}
-          />
-        ))}
-      </main>
-    </div>
+    <nav className="w-full mb-8">
+      <div className="flex justify-center space-x-2 sm:space-x-4">
+        <NavLink to="/" className={linkClasses} end>
+          Home
+        </NavLink>
+        <NavLink to="/tierlist" className={linkClasses}>
+          Tier List
+        </NavLink>
+        <NavLink to="/builder" className={linkClasses}>
+          Builder
+        </NavLink>
+        <NavLink to="/units" className={linkClasses}>
+          Units
+        </NavLink>
+        <NavLink to="/equipment" className={linkClasses}>
+          Equipment
+        </NavLink>
+      </div>
+    </nav>
   );
 }
