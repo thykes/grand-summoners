@@ -40,7 +40,7 @@ export default function CompactEquipCard({ equip, onEquipClick, count, onIncreme
         alt={`${equip.Equip_Name} Thumbnail`}
         loading="lazy"
       />
-      <p className="mt-2 text-xs font-semibold text-center text-gray-300 truncate w-24">
+      <p className="mt-2 text-xs font-semibold text-center text-gray-300 clamp-2 w-24">
         {equip.Equip_Name}
       </p>
       <div className="absolute bottom-full mb-2 w-48 p-3 bg-gray-900/90 backdrop-blur-sm border border-gray-600 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-10 transform group-hover:-translate-y-1">

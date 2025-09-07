@@ -1,71 +1,90 @@
 // src/components/UnitCard.jsx
+import React from "react";
 
-import React from 'react';
+export default function UnitCard({ unit, onClick, suggestedSlots = [], onEquipClick }) {
+  if (!unit) return null;
 
-function UnitCard({ unit, onClick, suggestedSlots = {} }) {
-  
-  const cardClasses = `relative group card p-3 flex flex-col items-center text-center cursor-pointer 
-                       transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-cyan-500/20
-                       border-2 border-transparent`;
-
-  // Create an array representing the three slots for easy mapping.
+  const slotDefs = [
+    { type: unit.Slot_1_Type, rarity: unit.Slot_1_Rarity },
+    { type: unit.Slot_2_Type, rarity: unit.Slot_2_Rarity },
+    { type: unit.Slot_3_Type, rarity: unit.Slot_3_Rarity },
+  ];
   const slots = [
-    { type: unit.Slot_1_Type, equip: suggestedSlots.slot1 },
-    { type: unit.Slot_2_Type, equip: suggestedSlots.slot2 },
-    { type: unit.Slot_3_Type, equip: suggestedSlots.slot3 },
+    suggestedSlots?.[0] || null,
+    suggestedSlots?.[1] || null,
+    suggestedSlots?.[2] || null,
   ];
 
   return (
-    <div onClick={() => onClick(unit)} className={cardClasses}>
+    <div
+      className="flex flex-col items-center bg-gray-900/80 radius-lg p-4 shadow-md hover:shadow-xl transition cursor-pointer border border-gray-700"
+      onClick={() => onClick?.(unit)}
+    >
+      {/* Thumbnail */}
       <img
-        src={unit.Thumbnail_URL || `https://placehold.co/128x128/1f2937/9ca3af?text=${unit.Unit_Name.substring(0, 3).toUpperCase()}`}
-        className="unit-image rounded-lg mb-2 w-24 h-24 object-cover border-2 border-gray-600/50"
-        alt={`${unit.Unit_Name} Icon`}
+        src={unit.Thumbnail_URL}
+        alt={unit.Unit_Name}
         loading="lazy"
+        className="w-24 h-24 rounded-lg object-cover mb-3 border border-gray-700/80 shadow-md"
       />
-      <h5 className="text-base font-semibold text-gray-200 truncate w-full">
+
+      {/* Name + Role */}
+      <h3 className="text-white text-lg font-semibold text-center">
         {unit.Unit_Name}
-      </h5>
-      {/* Add extra margin to make space for the equipment slots at the bottom */}
-      <p className="text-xs italic text-gray-400 mb-10">
-        {`${unit.Element} - ${unit.Primary_Archetype}`}
+      </h3>
+      <p className="text-gray-400 text-sm mt-1">
+        {unit.Element} • {unit.Primary_Archetype || unit.Role || "Unknown"}
       </p>
-      
-      {/* --- NEW: Full Equipment Loadout Display --- */}
-      <div className="absolute bottom-2 left-2 right-2 h-8 flex justify-center items-center gap-1">
-        {slots.map((slot, index) => {
-          // If the unit doesn't have a slot in this position, render an empty spacer for alignment
-          if (!slot.type) {
-            return <div key={index} className="w-8 h-8" />;
-          }
-          
+
+      {/* Solves badges */}
+      {(unit.solves && unit.solves.length > 0) && (
+        <div className="mt-3 flex flex-wrap gap-2 justify-center">
+          {unit.solves.slice(0, 3).map((s, i) => (
+            <span key={i} className="badge badge-cyan">{s}</span>
+          ))}
+        </div>
+      )}
+
+      {/* Suggested Slots: always show 3 in correct order */}
+      <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 w-full">
+        {slots.map((slot, i) => {
+          const def = slotDefs[i] || {};
+          const hasEquip = !!slot;
+          const label = hasEquip ? slot.Equip_Name : `Empty`;
+          const subtitle = !hasEquip && def.type ? `${def.type} • ${def.rarity || ''}★` : '';
           return (
-            <div 
-              key={index}
-              className="w-8 h-8 bg-gray-900/70 rounded-md border border-gray-600 flex items-center justify-center"
-              title={slot.equip ? `Suggested: ${slot.equip.Equip_Name}` : `Empty ${slot.type} Slot`}
+            <button
+              key={i}
+              title={hasEquip ? slot.Equip_Name : undefined}
+              onClick={(e) => {
+                if (!hasEquip) return;
+                e.stopPropagation();
+                onEquipClick?.(slot);
+              }}
+              className={`w-full flex flex-col items-center bg-gray-800/70 radius-sm p-2 transition ${
+                hasEquip ? 'hover:bg-gray-700 cursor-pointer' : 'opacity-70 cursor-default'
+              }`}
             >
-              {/* If an equipment is suggested for this slot, display its thumbnail */}
-              {slot.equip ? (
-                <img 
-                  src={slot.equip.Thumbnail_URL}
-                  alt={slot.equip.Equip_Name}
-                  className="w-full h-full object-contain p-0.5"
+              {hasEquip && slot.Thumbnail_URL ? (
+                <img
+                  src={slot.Thumbnail_URL}
+                  alt={slot.Equip_Name}
+                  loading="lazy"
+                  className="w-10 h-10 sm:w-12 sm:h-12 object-contain mb-2"
                 />
               ) : (
-                // Otherwise, display the generic slot type icon
-                <img 
-                  src={`/assets/slots/${slot.type.split('/')[0]}.png`} // Show first type icon for empty dual slots
-                  alt={`${slot.type} slot`}
-                  className="w-5 h-5 opacity-30"
-                />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-700 rounded mb-2" />
               )}
-            </div>
+              <span className="text-[10px] text-gray-300 text-center leading-tight break-words whitespace-normal w-full clamp-2">
+                {label}
+              </span>
+              {!hasEquip && subtitle && (
+                <span className="text-[10px] text-gray-400 text-center w-full mt-0.5 clamp-2">{subtitle}</span>
+              )}
+            </button>
           );
         })}
       </div>
     </div>
   );
 }
-
-export default React.memo(UnitCard);

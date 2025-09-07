@@ -19,9 +19,9 @@ export default function EquipmentDetailsPage({ equip, allEquipment = [] }) {
   }
 
   const DetailSection = ({ title, children }) => (
-    <div className="mt-6">
-      <h4 className="text-2xl font-bold text-cyan-400 mb-3">{title}</h4>
-      <div className="space-y-3">{children}</div>
+    <div className="mt-8">
+      <h4 className="text-2xl font-bold text-cyan-400 mb-4">{title}</h4>
+      <div className="space-y-4">{children}</div>
     </div>
   );
 
@@ -41,16 +41,19 @@ export default function EquipmentDetailsPage({ equip, allEquipment = [] }) {
 
   return (
     <div className="w-full">
-      <PageHeader 
-        title={currentEquip.Equip_Name}
-        subtitle={`${currentEquip.Type} - Rarity: ${currentEquip.Rarity}★`}
-      />
+      <div className="mt-28 mb-28">
+        <PageHeader 
+          title={currentEquip.Equip_Name}
+          subtitle={`${currentEquip.Type} - Rarity: ${currentEquip.Rarity}★`}
+        />
+      </div>
       <main className="w-full">
         <div className="card">
           <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8">
             <img 
               src={currentEquip.Image_URL || currentEquip.Thumbnail_URL || `https://placehold.co/400x400/1f2937/9ca3af?text=No+Art`}
               alt={`${currentEquip.Equip_Name} Full Artwork`}
+              loading="lazy"
               className="rounded-xl w-full sm:w-2/3 lg:w-1/3 object-contain bg-gray-900/50 p-2 shadow-lg"
             />
             <div className="w-full lg:w-2/3">

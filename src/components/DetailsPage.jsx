@@ -48,8 +48,8 @@ export default function DetailsPage({ unit, allUnits }) {
 
   const DetailSection = ({ title, children }) => (
     <div className="mt-8">
-      <h4 className="text-2xl font-bold text-cyan-400 mb-3">{title}</h4>
-      <div className="space-y-3">{children}</div>
+      <h4 className="text-2xl font-bold text-cyan-400 mb-4">{title}</h4>
+      <div className="space-y-4">{children}</div>
     </div>
   );
 
@@ -69,22 +69,25 @@ export default function DetailsPage({ unit, allUnits }) {
 
   return (
     <div className="w-full">
-      <PageHeader 
-        title={currentUnit.Unit_Name}
-        subtitle={`${currentUnit.Element} - ${currentUnit.Race} - ${currentUnit.Primary_Archetype}`}
-      />
+      <div className="mt-28 mb-28">
+        <PageHeader 
+          title={currentUnit.Unit_Name}
+          subtitle={`${currentUnit.Element} - ${currentUnit.Race} - ${currentUnit.Primary_Archetype}`}
+        />
+      </div>
       <main className="w-full">
         <div className="card">
           <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8">
             <img 
               src={currentUnit.Full_Artwork_URL || `https://placehold.co/400x400/1f2937/9ca3af?text=No+Art`}
               alt={`${currentUnit.Unit_Name} Full Artwork`}
+              loading="lazy"
               className="rounded-xl w-full sm:w-2/3 lg:w-1/3 object-cover shadow-lg"
             />
             <div className="w-full lg:w-2/3">
               <DetailSection title="Stats">
                 <InfoCard title="Level" value={currentUnit.Max_Level} />
-                <div className="grid grid-cols-3 gap-4 mt-3">
+                <div className="grid grid-cols-3 gap-4 mt-4">
                   <InfoCard title="HP" value={currentUnit.HP} />
                   <InfoCard title="ATK" value={currentUnit.ATK} />
                   <InfoCard title="DEF" value={currentUnit.DEF} />

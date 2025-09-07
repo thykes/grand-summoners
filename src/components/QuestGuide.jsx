@@ -7,10 +7,10 @@ const UnitMention = ({ unit, onUnitClick }) => {
 
     return (
         <div 
-            className="inline-flex items-center gap-2 bg-gray-800/60 hover:bg-gray-700/80 p-1 pr-3 rounded-full cursor-pointer transition-colors border border-gray-700"
+            className="inline-flex items-center gap-2 bg-gray-800/60 hover:bg-gray-700/80 p-1 pr-3 radius-pill cursor-pointer transition-colors border border-gray-700"
             onClick={() => onUnitClick(unit)}
         >
-            <img src={unit.Thumbnail_URL} alt={unit.Unit_Name} className="w-8 h-8 rounded-full object-cover" />
+            <img src={unit.Thumbnail_URL} alt={unit.Unit_Name} loading="lazy" className="w-8 h-8 rounded-full object-cover" />
             <span className="font-semibold text-sm text-cyan-300">{unit.Unit_Name}</span>
         </div>
     );

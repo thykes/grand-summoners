@@ -16,12 +16,35 @@
       radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 0.1) 0px, transparent 50%);
     background-color: #0c111d; /* A deep navy blue */
   }
+
+  /* Elevated typographic scale and rhythm */
+  h1 { @apply leading-tight; }
+  h2 { @apply leading-snug; }
+  h3, h4 { @apply leading-snug; }
+  p { @apply leading-relaxed; }
+  label { @apply leading-snug; }
 }
 
 @layer components {
+  /* Typography plugin overrides for better hierarchy */
+  .prose :where(h1):not(:where(.not-prose *)) { @apply text-3xl sm:text-4xl lg:text-5xl mb-4; }
+  .prose :where(h2):not(:where(.not-prose *)) { @apply text-2xl sm:text-3xl mb-3 mt-6; }
+  .prose :where(h3):not(:where(.not-prose *)) { @apply text-xl sm:text-2xl mb-2 mt-4; }
+  .prose :where(p):not(:where(.not-prose *)) { @apply leading-7; }
+  .prose :where(ul,ol):not(:where(.not-prose *)) { @apply my-4; }
+}
+
+@layer components {
+  /* Corner radius scale utilities */
+  .radius-micro { @apply rounded; }        /* ~4px */
+  .radius-sm    { @apply rounded-lg; }     /* ~8px */
+  .radius-md    { @apply rounded-xl; }     /* ~12px */
+  .radius-lg    { @apply rounded-2xl; }    /* ~16px */
+  .radius-pill  { @apply rounded-full; }   /* pill */
+
   /* The "frosted glass" card style that will be used everywhere */
   .card {
-    @apply bg-gray-800/60 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-lg p-6 transition-all duration-300;
+    @apply bg-gray-800/60 backdrop-blur-sm border border-gray-700/50 radius-md shadow-lg p-6 transition-all duration-300;
   }
   
   /* The glowing border effect for selected items */
@@ -31,13 +54,53 @@
 
   /* A new, energetic button style */
   .btn-primary {
-    @apply bg-cyan-500 hover:bg-cyan-400 text-white font-bold py-2 px-6 rounded-full shadow-lg shadow-cyan-500/30
+    @apply bg-cyan-500 hover:bg-cyan-400 text-white font-bold py-2 px-6 radius-pill shadow-lg shadow-cyan-500/30
            transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/50;
   }
   
   .btn-secondary {
-    @apply bg-gray-700 hover:bg-gray-600 text-gray-200 font-bold py-2 px-6 rounded-full shadow-lg
-           transition-all duration-300 ease-in-out transform hover:scale-105;
+    @apply bg-gray-800/60 hover:bg-gray-700/70 text-gray-200 font-semibold py-2 px-6 radius-pill shadow
+           border border-gray-700/60 transition-all duration-200 ease-in-out;
+  }
+
+  /* Form controls */
+  .input {
+    @apply bg-gray-700/80 text-white radius-sm border border-gray-600 px-3 py-2
+           focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 placeholder-gray-400;
+  }
+  .select {
+    @apply bg-gray-700/80 text-white radius-sm border border-gray-600 px-3 py-2
+           focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500;
+  }
+  .textarea {
+    @apply bg-gray-700/80 text-white radius-sm border border-gray-600 p-3
+           focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 placeholder-gray-400;
+  }
+
+  /* Tabs */
+  .tabs {
+    @apply flex justify-center border-b border-gray-700;
+  }
+  .tab {
+    @apply px-6 py-3 font-semibold text-gray-500 hover:text-gray-300 transition-colors;
+  }
+  .tab-active {
+    @apply text-white border-b-2 border-cyan-400;
+  }
+
+  /* Badges / Pills */
+  .badge {
+    @apply inline-flex items-center gap-2 px-2.5 py-1 radius-pill text-xs font-semibold border;
+  }
+  .badge-gray { @apply bg-gray-800/60 text-gray-200 border-gray-700; }
+  .badge-cyan { @apply bg-cyan-500/20 text-cyan-300 border-cyan-500/40; }
+
+  /* Line clamp utility (2 lines) */
+  .clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
 

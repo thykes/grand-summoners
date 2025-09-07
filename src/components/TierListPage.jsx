@@ -41,10 +41,12 @@ export default function TierListPage({ allUnits, setSelectedUnit }) {
 
   return (
     <div className="w-full">
-      <PageHeader
-        title="Community Tier List"
-        subtitle="Unit rankings based on overall power and utility in endgame content."
-      />
+      <div className="mt-28 mb-28">
+        <PageHeader
+          title="Community Tier List"
+          subtitle="Unit rankings based on overall power and utility in endgame content."
+        />
+      </div>
       <main className="w-full">
         {sortedTiers.map(tier => (
           <TierRow

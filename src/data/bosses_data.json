@@ -1,0 +1,632 @@
+[
+  {
+    "id": "Okarun_Turbo_Granny",
+    "name": "Okarun (Turbo Granny)",
+    "type": "Trial Event",
+    "description": "A high-speed Earth Spirit boss with a 'Rapid Mode' that must be canceled with ailments. Punishes Human, Water, and Earth units and has a powerful final nuke.",
+    "problems": [
+      {
+        "id": "high_evasion_dmg_res_rapid_mode",
+        "problem": "High Evasion & DMG RES (Rapid Mode)",
+        "priority": "Critical",
+        "solutionKeywords": [
+          "burn units",
+          "bind units",
+          "paralysis units",
+          "freeze units"
+        ]
+      },
+      {
+        "id": "killer_passive_human_water_earth",
+        "problem": "Killer Passive (Human/Water/Earth)",
+        "priority": "High",
+        "solutionKeywords": [
+          "avoid human/water/earth units",
+          "taunt tanks"
+        ]
+      },
+      {
+        "id": "arts_drain",
+        "problem": "Arts Drain",
+        "priority": "High",
+        "solutionKeywords": [
+          "high art gen"
+        ]
+      },
+      {
+        "id": "negates_mechanics_critical",
+        "problem": "Negates Mechanics (Critical)",
+        "priority": "High",
+        "solutionKeywords": [
+          "avoid crit-reliant units"
+        ]
+      },
+      {
+        "id": "final_nuke_attack",
+        "problem": "Final Nuke Attack",
+        "priority": "High",
+        "solutionKeywords": [
+          "dmg res",
+          "tanks"
+        ]
+      },
+      {
+        "id": "negates_mechanics_reflection",
+        "problem": "Negates Mechanics (Reflection)",
+        "priority": "Medium",
+        "solutionKeywords": [
+          "avoid reflection units"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "Grad_The_Demons_Pride",
+    "name": "Grad (The Demon's Pride)",
+    "type": "Trial Event",
+    "description": "A high-damage Dark element boss. Breaking him is critical to prevent his powerful Arts. Has a killer passive against Light units. Demon units are not allowed.",
+    "problems": [
+      {
+        "id": "requires_breaking",
+        "problem": "Requires Breaking",
+        "priority": "Critical",
+        "solutionKeywords": [
+          "breaker units"
+        ]
+      },
+      {
+        "id": "high_damage",
+        "problem": "High Damage",
+        "priority": "High",
+        "solutionKeywords": [
+          "dmg res",
+          "tanks",
+          "healers"
+        ]
+      },
+      {
+        "id": "killer_passive_light",
+        "problem": "Killer Passive (Light)",
+        "priority": "High",
+        "solutionKeywords": [
+          "avoid light units"
+        ]
+      }
+    ],
+    "questRestrictions": [
+      {
+        "type": "Race",
+        "value": "Demon"
+      }
+    ]
+  },
+  {
+    "id": "Radachne_Temple_of_Heavenly_Light",
+    "name": "Radachne (Temple of Heavenly Light)",
+    "type": "Crest Boss",
+    "description": "Spawns elemental wyrms and has strong Light/Dark killer passives. Status RES and a taunt tank are highly recommended.",
+    "problems": [
+      {
+        "id": "inflicts_ailments",
+        "problem": "Inflicts Ailments",
+        "priority": "High",
+        "solutionKeywords": [
+          "status res",
+          "status cleanse"
+        ]
+      },
+      {
+        "id": "killer_passive_light",
+        "problem": "Killer Passive (Light)",
+        "priority": "High",
+        "solutionKeywords": [
+          "avoid light units",
+          "taunt tanks"
+        ]
+      },
+      {
+        "id": "killer_passive_dark",
+        "problem": "Killer Passive (Dark)",
+        "priority": "High",
+        "solutionKeywords": [
+          "avoid dark units",
+          "taunt tanks"
+        ]
+      },
+      {
+        "id": "dmg_barrier",
+        "problem": "DMG Barrier",
+        "priority": "Medium",
+        "solutionKeywords": [
+          "barrier breakers",
+          "high damage"
+        ]
+      },
+      {
+        "id": "high_evasion",
+        "problem": "High Evasion",
+        "priority": "Medium",
+        "solutionKeywords": [
+          "accuracy up"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "Oldeus_Shrine_of_Oblivion",
+    "name": "Oldeus (Shrine of Oblivion)",
+    "type": "Crest Boss",
+    "description": "Evades all damage until broken. Deals massive extra damage to Light units and negates all Dark damage.",
+    "problems": [
+      {
+        "id": "requires_breaking",
+        "problem": "Requires Breaking",
+        "priority": "Critical",
+        "solutionKeywords": [
+          "breaker units"
+        ]
+      },
+      {
+        "id": "high_evasion",
+        "problem": "High Evasion",
+        "priority": "Critical",
+        "solutionKeywords": [
+          "breaker units"
+        ]
+      },
+      {
+        "id": "negates_damage_dark",
+        "problem": "Negates Damage (Dark)",
+        "priority": "Critical",
+        "solutionKeywords": [
+          "avoid dark units"
+        ]
+      },
+      {
+        "id": "killer_passive_light",
+        "problem": "Killer Passive (Light)",
+        "priority": "High",
+        "solutionKeywords": [
+          "avoid light units"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "Valzandeth_Shrine_of_Perdition",
+    "name": "Valzandeth (Shrine of Perdition)",
+    "type": "Crest Boss",
+    "description": "A difficult Extreme boss with powerful mobs and a lethal final nuke. Requires specific ailments and a strong magic tank.",
+    "problems": [
+      {
+        "id": "requires_ailment_burn",
+        "problem": "Requires Ailment (Burn)",
+        "priority": "High",
+        "solutionKeywords": [
+          "burn units"
+        ]
+      },
+      {
+        "id": "requires_ailment_blind",
+        "problem": "Requires Ailment (Blind)",
+        "priority": "High",
+        "solutionKeywords": [
+          "blind units"
+        ]
+      },
+      {
+        "id": "negates_mechanics_critical",
+        "problem": "Negates Mechanics (Critical)",
+        "priority": "High",
+        "solutionKeywords": [
+          "avoid crit-reliant units"
+        ]
+      },
+      {
+        "id": "high_damage_magic",
+        "problem": "High Damage (Magic)",
+        "priority": "High",
+        "solutionKeywords": [
+          "magic tanks",
+          "mag res"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "Ifrit_Shrine_of_the_Burning_Chains",
+    "name": "Ifrit (Shrine of the Burning Chains)",
+    "type": "Crest Boss",
+    "description": "Starts battle by burning everyone and reducing HP. Becomes stronger while burning, but much weaker if Frozen.",
+    "problems": [
+      {
+        "id": "requires_ailment_freeze",
+        "problem": "Requires Ailment (Freeze)",
+        "priority": "High",
+        "solutionKeywords": [
+          "freeze units"
+        ]
+      },
+      {
+        "id": "killer_passive_race",
+        "problem": "Killer Passive (Race)",
+        "priority": "High",
+        "solutionKeywords": [
+          "avoid machine/spirit units"
+        ]
+      },
+      {
+        "id": "inflicts_ailments_burn",
+        "problem": "Inflicts Ailments (Burn)",
+        "priority": "High",
+        "solutionKeywords": [
+          "burn res",
+          "status cleanse"
+        ]
+      },
+      {
+        "id": "healing_is_reduced",
+        "problem": "Healing is Reduced",
+        "priority": "Medium",
+        "solutionKeywords": [
+          "burst healing",
+          "hp up buffs"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "Ignis_Shrine_of_Crimson_Sea",
+    "name": "Ignis (Shrine of Crimson Sea)",
+    "type": "Crest Boss",
+    "description": "Area effect damages your team over time. Requires lifesteal for sustain and ignores DEF. Negates Fire damage.",
+    "problems": [
+      {
+        "id": "negates_damage_fire",
+        "problem": "Negates Damage (Fire)",
+        "priority": "Critical",
+        "solutionKeywords": [
+          "avoid fire units"
+        ]
+      },
+      {
+        "id": "constant_damage_area_effect",
+        "problem": "Constant Damage (Area Effect)",
+        "priority": "High",
+        "solutionKeywords": [
+          "lifesteal",
+          "healers"
+        ]
+      },
+      {
+        "id": "ignores_def",
+        "problem": "Ignores DEF",
+        "priority": "High",
+        "solutionKeywords": [
+          "dmg res buffs",
+          "tanks"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "Palamicia_Shrine_of_the_Azul_Knight",
+    "name": "Palamicia (Shrine of the Azul Knight)",
+    "type": "Crest Boss",
+    "description": "Deals massive extra damage to Human and God units. Has high self-healing and counter-attacks.",
+    "problems": [
+      {
+        "id": "killer_passive_race",
+        "problem": "Killer Passive (Race)",
+        "priority": "High",
+        "solutionKeywords": [
+          "avoid human/god units"
+        ]
+      },
+      {
+        "id": "high_self_heal",
+        "problem": "High Self-Heal",
+        "priority": "Medium",
+        "solutionKeywords": [
+          "disease units",
+          "high damage"
+        ]
+      },
+      {
+        "id": "counter_stance",
+        "problem": "Counter Stance",
+        "priority": "Medium",
+        "solutionKeywords": [
+          "dispel with arts",
+          "careful timing"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "Freydal_Shrine_of_Diamond_Dust",
+    "name": "Freydal (Shrine of Diamond Dust)",
+    "type": "Crest Boss",
+    "description": "Extremely high Evasion that must be countered with Accuracy buffs or Poison/Burn to break its 'Storm Mode' bar.",
+    "problems": [
+      {
+        "id": "high_evasion",
+        "problem": "High Evasion",
+        "priority": "Critical",
+        "solutionKeywords": [
+          "accuracy up",
+          "poison/burn units"
+        ]
+      },
+      {
+        "id": "requires_ailment_poison",
+        "problem": "Requires Ailment (Poison)",
+        "priority": "High",
+        "solutionKeywords": [
+          "poison units"
+        ]
+      },
+      {
+        "id": "requires_ailment_burn",
+        "problem": "Requires Ailment (Burn)",
+        "priority": "High",
+        "solutionKeywords": [
+          "burn units"
+        ]
+      },
+      {
+        "id": "stat_reduction_area_effect",
+        "problem": "Stat Reduction (Area Effect)",
+        "priority": "High",
+        "solutionKeywords": [
+          "strong healers",
+          "stat buffs"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "Gorondola_Shrine_of_Aberration",
+    "name": "Gorondola (Shrine of Aberration)",
+    "type": "Crest Boss",
+    "description": "Summons many mobs that inflict various status ailments and drain Arts. A taunt tank is almost mandatory.",
+    "problems": [
+      {
+        "id": "inflicts_ailments",
+        "problem": "Inflicts Ailments",
+        "priority": "High",
+        "solutionKeywords": [
+          "taunt tanks",
+          "status res",
+          "cleanse"
+        ]
+      },
+      {
+        "id": "arts_drain",
+        "problem": "Arts Drain",
+        "priority": "High",
+        "solutionKeywords": [
+          "taunt tanks",
+          "high art gen"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "Elpneumas_Shrine_of_Eternity",
+    "name": "Elpneumas (Shrine of Eternity)",
+    "type": "Crest Boss",
+    "description": "Negates all Water and Magic damage. Requires a taunt tank and non-magic physical attackers. Burn increases damage taken.",
+    "problems": [
+      {
+        "id": "negates_damage_water",
+        "problem": "Negates Damage (Water)",
+        "priority": "Critical",
+        "solutionKeywords": [
+          "avoid water units"
+        ]
+      },
+      {
+        "id": "negates_damage_magic",
+        "problem": "Negates Damage (Magic)",
+        "priority": "Critical",
+        "solutionKeywords": [
+          "use physical units"
+        ]
+      },
+      {
+        "id": "inflicts_ailments_disease",
+        "problem": "Inflicts Ailments (Disease)",
+        "priority": "High",
+        "solutionKeywords": [
+          "taunt tanks",
+          "avoid healers"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "Fosradius_Shrine_of_Adamantine",
+    "name": "Fosradius (Shrine of Adamantine)",
+    "type": "Crest Boss",
+    "description": "Negates Criticals and heavily punishes Fire, Water, and Earth units. Light and Dark units are strongly preferred.",
+    "problems": [
+      {
+        "id": "negates_mechanics_critical",
+        "problem": "Negates Mechanics (Critical)",
+        "priority": "High",
+        "solutionKeywords": [
+          "avoid crit-reliant units"
+        ]
+      },
+      {
+        "id": "killer_passive_element",
+        "problem": "Killer Passive (Element)",
+        "priority": "High",
+        "solutionKeywords": [
+          "avoid fire/water/earth units"
+        ]
+      },
+      {
+        "id": "high_damage",
+        "problem": "High Damage",
+        "priority": "High",
+        "solutionKeywords": [
+          "taunt tanks",
+          "dmg res"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "Belgiras_Shrine_of_Whirlwind",
+    "name": "Belgiras (Shrine of Whirlwind)",
+    "type": "Crest Boss",
+    "description": "Only takes damage when Poisoned, drains Arts, and has a strong Water Killer passive. A consistent Poison unit is required.",
+    "problems": [
+      {
+        "id": "requires_ailment_poison",
+        "problem": "Requires Ailment (Poison)",
+        "priority": "Critical",
+        "solutionKeywords": [
+          "poison units"
+        ]
+      },
+      {
+        "id": "killer_passive_water",
+        "problem": "Killer Passive (Water)",
+        "priority": "High",
+        "solutionKeywords": [
+          "avoid water units"
+        ]
+      },
+      {
+        "id": "arts_drain",
+        "problem": "Arts Drain",
+        "priority": "High",
+        "solutionKeywords": [
+          "high art gen"
+        ]
+      },
+      {
+        "id": "inflicts_ailments_poison",
+        "problem": "Inflicts Ailments (Poison)",
+        "priority": "Medium",
+        "solutionKeywords": [
+          "poison res",
+          "status cleanse"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "Subject_g-2_Shrine_of_Cursed_Claw",
+    "name": "Subject γ-2 (Shrine of Cursed Claw)",
+    "type": "Crest Boss",
+    "description": "Damage taken is extremely low until the boss is Broken multiple times. Requires strong breakers, preferably Fire-element.",
+    "problems": [
+      {
+        "id": "requires_breaking",
+        "problem": "Requires Breaking",
+        "priority": "Critical",
+        "solutionKeywords": [
+          "breaker units (fire preferred)"
+        ]
+      },
+      {
+        "id": "killer_passive_race",
+        "problem": "Killer Passive (Race)",
+        "priority": "High",
+        "solutionKeywords": [
+          "avoid god/demon units"
+        ]
+      },
+      {
+        "id": "inflicts_ailments_freeze",
+        "problem": "Inflicts Ailments (Freeze)",
+        "priority": "High",
+        "solutionKeywords": [
+          "freeze res",
+          "cleanse",
+          "tanks"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "Subject_b-3_Shrine_of_Discordia",
+    "name": "Subject β-3 (Shrine of Discordia)",
+    "type": "Crest Boss",
+    "description": "A bulky, non-elemental boss that deals massive single-target damage and drains huge amounts of Arts. A taunt tank is highly recommended.",
+    "problems": [
+      {
+        "id": "high_damage",
+        "problem": "High Damage",
+        "priority": "High",
+        "solutionKeywords": [
+          "taunt tanks",
+          "dmg res",
+          "healers"
+        ]
+      },
+      {
+        "id": "arts_drain",
+        "problem": "Arts Drain",
+        "priority": "High",
+        "solutionKeywords": [
+          "taunt tanks",
+          "high art gen"
+        ]
+      },
+      {
+        "id": "high_elemental_resistance",
+        "problem": "High Elemental Resistance",
+        "priority": "Medium",
+        "solutionKeywords": [
+          "dmg res debuffers"
+        ]
+      },
+      {
+        "id": "inflicts_ailments_curse",
+        "problem": "Inflicts Ailments (Curse)",
+        "priority": "Medium",
+        "solutionKeywords": [
+          "status cleanse",
+          "status res"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "Zaremnah_Shrine_of_Tribulation",
+    "name": "Za'remnah (Shrine of Tribulation)",
+    "type": "Crest Boss",
+    "description": "An extremely difficult boss that requires a top-tier breaker. It 'locks' units, disabling them until the boss is broken.",
+    "problems": [
+      {
+        "id": "requires_breaking",
+        "problem": "Requires Breaking",
+        "priority": "Critical",
+        "solutionKeywords": [
+          "breaker units (duke is best)"
+        ]
+      },
+      {
+        "id": "killer_passive_race",
+        "problem": "Killer Passive (Race)",
+        "priority": "High",
+        "solutionKeywords": [
+          "avoid god units"
+        ]
+      },
+      {
+        "id": "disables_units_lock",
+        "problem": "Disables Units ('Lock')",
+        "priority": "Critical",
+        "solutionKeywords": [
+          "fast breaking"
+        ]
+      }
+    ]
+  }
+]

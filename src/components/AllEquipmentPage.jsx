@@ -56,20 +56,22 @@ export default function AllEquipmentPage({ allEquipment, myEquipment, onIncremen
 
   return (
     <div className="w-full">
-      <PageHeader title="Equipment Database" subtitle="Browse all equipment and manage your collection."/>
+      <div className="mt-28 mb-28">
+        <PageHeader title="Equipment Database" subtitle="Browse all equipment and manage your collection."/>
+      </div>
       <main className="w-full">
         <div className="card mb-8">
-          <input type="text" name="searchQuery" placeholder="Search by equipment name..." value={filters.searchQuery} onChange={handleFilterChange} className="bg-gray-700/80 text-white rounded-md p-3 w-full border border-gray-600 focus:ring-2 focus:ring-cyan-500 mb-4" />
+          <input type="text" name="searchQuery" placeholder="Search by equipment name..." value={filters.searchQuery} onChange={handleFilterChange} className="input w-full mb-4" />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            <select name="type" onChange={handleFilterChange} value={filters.type} className="bg-gray-700/80 text-white rounded-md p-2 w-full border border-gray-600">
+            <select name="type" onChange={handleFilterChange} value={filters.type} className="select w-full">
               <option value="All">All Types</option>
               {filterOptions.types.map(type => <option key={type} value={type}>{type}</option>)}
             </select>
-            <select name="rarity" onChange={handleFilterChange} value={filters.rarity} className="bg-gray-700/80 text-white rounded-md p-2 w-full border border-gray-600">
+            <select name="rarity" onChange={handleFilterChange} value={filters.rarity} className="select w-full">
               <option value="All">All Rarities</option>
               {filterOptions.rarities.map(r => <option key={r} value={r}>{r}★</option>)}
             </select>
-            <select onChange={(e) => setSortOrder(e.target.value)} value={sortOrder} className="bg-gray-700/80 text-white rounded-md p-2 w-full border border-gray-600">
+            <select onChange={(e) => setSortOrder(e.target.value)} value={sortOrder} className="select w-full">
               <option value="release">Sort: Release Order</option>
               <option value="rarity_desc">Sort: Rarity (High-Low)</option>
               <option value="rarity_asc">Sort: Rarity (Low-High)</option>
@@ -85,7 +87,7 @@ export default function AllEquipmentPage({ allEquipment, myEquipment, onIncremen
             <button onClick={handleClearAll} className="text-sm font-semibold text-red-400 hover:text-red-300">Clear All My Equipment</button>
           </div>
         </div>
-        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-x-4 gap-y-8">
+        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-x-4 gap-y-8 mb-8">
           {filteredAndSortedEquips.map(equip => (
             <CompactEquipCard 
               equip={equip} 

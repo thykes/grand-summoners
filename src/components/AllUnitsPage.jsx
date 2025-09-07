@@ -15,12 +15,20 @@ export default function AllUnitsPage({
   onClearAll,
 }) {
   const navigate = useNavigate();
-  const [filters, setFilters] = useState({
-    element: 'All',
-    archetype: 'All',
-    artGenGroup: 'ALL_UNITS',
-    searchQuery: '',
+  const [filters, setFilters] = useState(() => {
+    const q = sessionStorage.getItem('globalSearchQuery') || '';
+    return {
+      element: 'All',
+      archetype: 'All',
+      artGenGroup: 'ALL_UNITS',
+      searchQuery: q,
+    };
   });
+  React.useEffect(() => {
+    if (sessionStorage.getItem('globalSearchQuery')) {
+      sessionStorage.removeItem('globalSearchQuery');
+    }
+  }, []);
   const [sortOrder, setSortOrder] = useState('release');
 
   const orderedArtGenGroups = useMemo(() => {
@@ -83,10 +91,12 @@ export default function AllUnitsPage({
 
   return (
     <div className="w-full">
-      <PageHeader
-        title="Unit Database"
-        subtitle="Browse all units and manage your collection."
-      />
+      <div className="mt-28 mb-28">
+        <PageHeader
+          title="Unit Database"
+          subtitle="Browse all units and manage your collection."
+        />
+      </div>
       <main className="w-full">
         <div className="card mb-8">
           <input
@@ -95,14 +105,14 @@ export default function AllUnitsPage({
             placeholder="Search by unit name..."
             value={filters.searchQuery}
             onChange={handleFilterChange}
-            className="bg-gray-700/80 text-white rounded-md p-3 w-full border border-gray-600 focus:ring-2 focus:ring-cyan-500 mb-4"
+            className="input w-full mb-4"
           />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             <select
               name="element"
               onChange={handleFilterChange}
               value={filters.element}
-              className="bg-gray-700/80 text-white rounded-md p-2 w-full border border-gray-600"
+              className="select w-full"
             >
               <option value="All">All Elements</option>
               <option value="Fire">Fire</option>
@@ -115,7 +125,7 @@ export default function AllUnitsPage({
               name="archetype"
               onChange={handleFilterChange}
               value={filters.archetype}
-              className="bg-gray-700/80 text-white rounded-md p-2 w-full border border-gray-600"
+              className="select w-full"
             >
               <option value="All">All Archetypes</option>
               {filterOptions.primaryArchetypes.map((type) => (
@@ -128,7 +138,7 @@ export default function AllUnitsPage({
               name="artGenGroup"
               onChange={handleFilterChange}
               value={filters.artGenGroup}
-              className="bg-gray-700/80 text-white rounded-md p-2 w-full border border-gray-600"
+              className="select w-full"
             >
               <option value="ALL_UNITS">All Art Gen Groups</option>
               <option value="NONE">None</option>
@@ -142,7 +152,7 @@ export default function AllUnitsPage({
             <select
               onChange={(e) => setSortOrder(e.target.value)}
               value={sortOrder}
-              className="bg-gray-700/80 text-white rounded-md p-2 w-full border border-gray-600"
+              className="select w-full"
             >
               <option value="release">Sort: Release Order</option>
               <option value="A-Z">Sort: Name (A-Z)</option>
@@ -173,7 +183,7 @@ export default function AllUnitsPage({
             </button>
           </div>
         </div>
-        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-x-4 gap-y-8">
+        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-x-4 gap-y-8 mb-8">
           {filteredAndSortedUnits.map((unit) => (
             <CompactUnitCard
               unit={unit}

@@ -2,18 +2,16 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useFirestoreData } from './hooks/useFirestoreData';
+
 import HomePage from './components/HomePage';
 import AllUnitsPage from './components/AllUnitsPage';
 import DetailsPage from './components/DetailsPage';
-import BuilderPage from './components/BuilderPage';
 import AllEquipmentPage from './components/AllEquipmentPage';
 import EquipmentDetailsPage from './components/EquipmentDetailsPage';
 import PageHeader from './components/PageHeader';
 import SkeletonCard from './components/SkeletonCard';
 import NavBar from './components/NavBar';
 import TierListPage from './components/TierListPage';
-import AllBossesPage from './components/AllBossesPage';
-import AllGuidesPage from './components/AllGuidesPage';
 
 const ScrollToTop = ({ children }) => {
   const { pathname } = useLocation();
@@ -25,9 +23,11 @@ const ScrollToTop = ({ children }) => {
 
 function AppContent() {
   const { allUnits, allBosses, allEquipment, allGuides, isLoading, error } = useFirestoreData();
+
   const [selectedUnit, setSelectedUnit] = useState(null);
   const [selectedEquip, setSelectedEquip] = useState(null);
 
+  // ✅ Units collection
   const [myUnits, setMyUnits] = useState(() => new Set(JSON.parse(localStorage.getItem('myUnits') || '[]')));
   useEffect(() => {
     localStorage.setItem('myUnits', JSON.stringify(Array.from(myUnits)));
@@ -41,6 +41,7 @@ function AppContent() {
     });
   const clearMyUnits = () => setMyUnits(new Set());
 
+  // ✅ Equipment collection
   const [myEquipment, setMyEquipment] = useState(
     () => new Map(JSON.parse(localStorage.getItem('myEquipment') || '[]'))
   );
@@ -62,6 +63,7 @@ function AppContent() {
     });
   const clearMyEquipment = () => setMyEquipment(new Map());
 
+  // ✅ Filters persistence
   const [showMyUnitsFilter, setShowMyUnitsFilter] = useState(
     () => localStorage.getItem('showMyUnitsFilter') === 'true'
   );
@@ -76,6 +78,7 @@ function AppContent() {
     localStorage.setItem('showMyEquipsFilter', showMyEquipsFilter);
   }, [showMyEquipsFilter]);
 
+  // ✅ Loading state
   if (isLoading) {
     return (
       <div className="w-full">
@@ -90,6 +93,7 @@ function AppContent() {
     );
   }
 
+  // ✅ Error state
   if (error) {
     return (
       <>
@@ -99,19 +103,73 @@ function AppContent() {
     );
   }
 
+  // ✅ Main routes
   return (
     <>
       <NavBar />
       <Routes>
-        <Route path="/" element={<HomePage allUnits={allUnits} allBosses={allBosses} allGuides={allGuides} allEquipment={allEquipment} myUnits={myUnits} myEquipment={myEquipment} setSelectedUnit={setSelectedUnit} setSelectedEquip={setSelectedEquip} />} />
-        <Route path="/units" element={<AllUnitsPage allUnits={allUnits} myUnits={myUnits} onToggleUnit={toggleUnitInCollection} setSelectedUnit={setSelectedUnit} showMyUnitsFilter={showMyUnitsFilter} setShowMyUnitsFilter={setShowMyUnitsFilter} onClearAll={clearMyUnits} />} />
+        {/* Home / Event Builder */}
+        <Route
+          path="/"
+          element={
+            <HomePage
+              allUnits={allUnits}
+              allBosses={allBosses}
+              allGuides={allGuides}
+              allEquipment={allEquipment}
+              myUnits={myUnits}
+              myEquipment={myEquipment}
+              setSelectedUnit={setSelectedUnit}
+              setSelectedEquip={setSelectedEquip}
+            />
+          }
+        />
+
+        {/* Tier Lists */}
+        <Route
+          path="/tierlist"
+          element={<TierListPage allUnits={allUnits} setSelectedUnit={setSelectedUnit} />}
+        />
+
+        {/* Units */}
+        <Route
+          path="/units"
+          element={
+            <AllUnitsPage
+              allUnits={allUnits}
+              myUnits={myUnits}
+              onToggleUnit={toggleUnitInCollection}
+              setSelectedUnit={setSelectedUnit}
+              showMyUnitsFilter={showMyUnitsFilter}
+              setShowMyUnitsFilter={setShowMyUnitsFilter}
+              onClearAll={clearMyUnits}
+            />
+          }
+        />
         <Route path="/unit/:unitId" element={<DetailsPage unit={selectedUnit} allUnits={allUnits} />} />
-        <Route path="/equipment" element={<AllEquipmentPage allEquipment={allEquipment} myEquipment={myEquipment} onIncrementEquip={handleIncrementEquip} onDecrementEquip={handleDecrementEquip} setSelectedEquip={setSelectedEquip} showMyEquipsFilter={showMyEquipsFilter} setShowMyEquipsFilter={setShowMyEquipsFilter} onClearAll={clearMyEquipment} />} />
-        <Route path="/equip/:equipId" element={<EquipmentDetailsPage equip={selectedEquip} allEquipment={allEquipment} />} />
-        <Route path="/bosses" element={<AllBossesPage allBosses={allBosses} />} />
-        <Route path="/guides" element={<AllGuidesPage allGuides={allGuides} />} />
-        <Route path="/tierlist" element={<TierListPage allUnits={allUnits} setSelectedUnit={setSelectedUnit} />} />
-        <Route path="/builder" element={<BuilderPage allUnits={allUnits} myUnits={myUnits} setSelectedUnit={setSelectedUnit} />} />
+
+        {/* Equipment */}
+        <Route
+          path="/equipment"
+          element={
+            <AllEquipmentPage
+              allEquipment={allEquipment}
+              myEquipment={myEquipment}
+              onIncrementEquip={handleIncrementEquip}
+              onDecrementEquip={handleDecrementEquip}
+              setSelectedEquip={setSelectedEquip}
+              showMyEquipsFilter={showMyEquipsFilter}
+              setShowMyEquipsFilter={setShowMyEquipsFilter}
+              onClearAll={clearMyEquipment}
+            />
+          }
+        />
+        <Route
+          path="/equip/:equipId"
+          element={<EquipmentDetailsPage equip={selectedEquip} allEquipment={allEquipment} />}
+        />
+
+        {/* Removed: General Team Builder, Bosses listing/details, Guides listing/details */}
       </Routes>
     </>
   );
@@ -120,7 +178,10 @@ function AppContent() {
 export default function App() {
   return (
     <BrowserRouter
-      future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
     >
       <ScrollToTop>
         <div className="p-4 sm:p-8 flex flex-col items-center min-h-screen bg-gray-900">

@@ -23,7 +23,7 @@ export default function TierRow({ tier, units, onUnitClick }) {
   const tierStyle = tierColorMap[tier] || tierColorMap['Default'];
   
   return (
-    <div className="flex flex-col md:flex-row items-start mb-6 card p-4">
+    <div className="flex flex-col md:flex-row items-start mb-8 card p-4">
       <div className="flex-shrink-0 w-full md:w-24 flex items-center justify-center mb-4 md:mb-0">
         <h2 className={`text-4xl font-black w-20 h-20 rounded-lg flex items-center justify-center border-2 shadow-lg ${tierStyle}`}>
           {tier}
