@@ -23,6 +23,7 @@ function reducer(state, action) {
     case "SET_LOADING_STEP": return { ...state, loadingStep: action.payload };
     case "SET_AI_PLAN": return { ...state, status: "success", result: { ...state.result, plan: action.payload } };
     case "FETCH_ERROR": return { ...state, status: "success", result: { ...state.result, plan: "⚠️ Could not generate AI strategy." } };
+    case "HYDRATE": return { ...state, status: "success", result: action.payload, loadingStep: 0 };
     default: return state;
   }
 }
@@ -34,6 +35,7 @@ export default function HomePage({ allUnits, allBosses, allGuides, allEquipment,
   const [selectedBoss, setSelectedBoss] = useState(null);
   const [builderState, dispatch] = useReducer(reducer, initialState);
   const [activeTab, setActiveTab] = useState("strategy");
+  const hydratedRef = useRef(false);
 
   const loadingSteps = [
     "Analyzing Team Synergy...",
@@ -127,14 +129,68 @@ export default function HomePage({ allUnits, allBosses, allGuides, allEquipment,
   }, []);
 
   useEffect(() => {
+    // One-time hydration from localStorage when data is available
+    if (!hydratedRef.current && allBosses && allBosses.length > 0) {
+      let saved = null;
+      try { saved = JSON.parse(localStorage.getItem('eventBuilderStateV1') || 'null'); } catch {}
+      if (saved) {
+        // Try to restore boss first
+        let found = null;
+        if (saved.bossId) {
+          found = allBosses.find(b => b.id === saved.bossId) || null;
+          if (found) setSelectedBoss(found);
+        }
+        // Restore or align category with found boss type so it remains visible in the dropdown
+        if (found) {
+          const bossType = found.type; // e.g., 'Crest Boss' or 'Trial Event'
+          const validCats = Object.keys(categoryMap).filter(k => categoryMap[k] === bossType);
+          const savedCat = saved.eventType;
+          if (savedCat && validCats.includes(savedCat)) {
+            setSelectedEventType(savedCat);
+          } else if (validCats.length > 0) {
+            // Prefer a sensible default category for each type
+            const preferred = bossType === 'Crest Boss' ? 'Giant Boss' : 'Trials';
+            setSelectedEventType(validCats.includes(preferred) ? preferred : validCats[0]);
+          }
+        } else if (saved.eventType) {
+          setSelectedEventType(saved.eventType);
+        }
+
+        if (saved.builderResult) {
+          dispatch({ type: 'HYDRATE', payload: saved.builderResult });
+        }
+        if (saved.activeTab) setActiveTab(saved.activeTab);
+      }
+      hydratedRef.current = true;
+    }
+  }, [allBosses, categoryMap]);
+
+  useEffect(() => {
     if (!filteredBosses.length) {
       if (selectedBoss) setSelectedBoss(null);
       return;
     }
-    if (!selectedBoss || !filteredBosses.find((b) => b.id === selectedBoss.id)) {
+    const inList = selectedBoss && filteredBosses.some(b => b.id === selectedBoss.id);
+    if (!selectedBoss || !inList) {
+      if (hydratedRef.current) {
+        // Skip once right after hydration to preserve restored selection
+        hydratedRef.current = false;
+        return;
+      }
       setSelectedBoss(filteredBosses[0]);
     }
   }, [filteredBosses, selectedBoss]);
+
+  // Persist current builder view/state so navigating away/back or reloading restores instantly
+  useEffect(() => {
+    const toSave = {
+      eventType: selectedEventType,
+      bossId: selectedBoss?.id || null,
+      builderResult: builderState.result,
+      activeTab,
+    };
+    try { localStorage.setItem('eventBuilderStateV1', JSON.stringify(toSave)); } catch {}
+  }, [selectedEventType, selectedBoss, builderState.result, activeTab]);
 
   return (
     <div className="w-full">
